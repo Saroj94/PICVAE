@@ -1,6 +1,6 @@
 [project]
 name = "src"
-version = "0.0.1"
+version = "0.1.0"
 description = "Physics-Informed C-VAE"
 authors = [{name = "Saroj Rai", email = "sarojrai.in@gmail.com"}]
 
