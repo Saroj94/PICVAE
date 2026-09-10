@@ -4,3 +4,5 @@ torch
 dipy
 scipy
 matplotlib
+logging
+pathlib
