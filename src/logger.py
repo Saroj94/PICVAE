@@ -54,8 +54,8 @@ def configure_logger():
     logger.addHandler(file_handler)
     logger.addHandler(console_handler)
 
-    return logger
-
 ##configure and expose the logger objects
+configure_logger()  
 
-logger = configure_logger()  
+if __name__=="__main__":
+    print("Successfull")
