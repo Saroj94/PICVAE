@@ -39,6 +39,12 @@
 
 
 ------------------------------------------------NOTE--------------------------------------------------
+# Step 1: Hire the Reporter (Create Logger)
+# Step 2: Create the Style Guide (Create Formatter)
+# Step 3: Set up the Destinations (Create Handlers: File & Console)
+# Step 4: Give the Style Guide to the Destinations (Attach Formatter to Handlers)
+# Step 5: Give the Destinations to the Reporter (Attach Handlers to Logger)
+
 1. Setup.py: Having setup file allows the project installable (setup.py and pyproject.toml make your MLOps project installable, versionable, reproducible, and deployable.)
 
 CRITICAL = 50
@@ -51,3 +57,4 @@ DEBUG is more detailed than INFO
 INFO is more detailed than WARNING
 WARNING is more detailed than ERROR
 ERROR is more detailed than CRITICAL
+
