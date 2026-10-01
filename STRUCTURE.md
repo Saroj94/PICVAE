@@ -47,14 +47,14 @@
 
 1. Setup.py: Having setup file allows the project installable (setup.py and pyproject.toml make your MLOps project installable, versionable, reproducible, and deployable.)
 
-CRITICAL = 50
-ERROR    = 40
-WARNING  = 30
-INFO     = 20
-DEBUG    = 10
+- CRITICAL = 50
+- ERROR    = 40
+- WARNING  = 30
+- INFO     = 20
+- DEBUG    = 10
 
-DEBUG is more detailed than INFO
-INFO is more detailed than WARNING
-WARNING is more detailed than ERROR
-ERROR is more detailed than CRITICAL
+- DEBUG is more detailed than INFO
+- INFO is more detailed than WARNING
+- WARNING is more detailed than ERROR
+- ERROR is more detailed than CRITICAL
 
