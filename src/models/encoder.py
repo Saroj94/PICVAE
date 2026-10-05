@@ -1,1 +1,2 @@
-import torch as nn
+import torch.nn as nn
+from src.logger import logging
