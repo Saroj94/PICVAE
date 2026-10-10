@@ -36,7 +36,7 @@ $$\int p(y^{\*}\mid x^{\*},W)\,p(W\mid X,Y)\,dW\approx \frac{1}{N}\sum _{i=1}^{N
 
 # **Monte Carlo Works in Data**
 ## **2. Estimating Uncertainty (Variance) from N-Sample Outputs**
-When you run a stochastic model (like Monte Carlo Dropout) $"N"$ times for the exact same input, you receive $"N"$ distinct output vectors: $\{y_1, y_2, \dots, y_N\}$. We use these samples to calculate two types of uncertainty: Epistemic (model uncertainty) and Aleatoric (inherent data noise). Here is how you mathematically compute the final prediction and its corresponding uncertainty. 
+When you run a stochastic model (like Monte Carlo Dropout) $"N"$ times for the exact same input, you receive $"N"$ distinct output vectors: $\({y_1, y_2, \dots, y_N}\)$. We use these samples to calculate two types of uncertainty: Epistemic (model uncertainty) and Aleatoric (inherent data noise). Here is how you mathematically compute the final prediction and its corresponding uncertainty. 
 
 ## **2.1 The Expected Prediction (First Moment)**
 The final stable prediction is the Monte Carlo Sample Mean $\mu$, which represents the center of mass of your predictions: 
