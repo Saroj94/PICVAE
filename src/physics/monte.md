@@ -34,7 +34,7 @@ A neural network contains millions of parameters, hence, this integral is infini
 
 $$\int p(y^{\*}\mid x^{\*},W)\,p(W\mid X,Y)\,dW\approx \frac{1}{N}\sum _{i=1}^{N}p(y^{\*}\mid x^{\*},\widehat{W}_{i})$$
 
-# **Monte Carlo Works in Data**
+# **Monte Carlo Sampling in Dataset**
 ## **2. Estimating Uncertainty (Variance) from N-Sample Outputs**
 When you run a stochastic model (like Monte Carlo Dropout) $"N"$ times for the exact same input, you receive $"N"$ distinct output vectors: $\({y_1, y_2, \dots, y_N}\)$. We use these samples to calculate two types of uncertainty: Epistemic (model uncertainty) and Aleatoric (inherent data noise). Here is how you mathematically compute the final prediction and its corresponding uncertainty. 
 
@@ -85,7 +85,47 @@ To document how this maps onto neural network architecture (e.g 4 hidden layers,
        ▼
 [ Final Prediction + Uncertainty Map ]
 ```
-1. Bernoulli Level (Per Neuron): A single node outputs $x_i \cdot M_i \cdot \frac{1}{1-p}$, where $M_i \in \{0, 1\}$. 
-2. Binomial Level (Per Layer): The layer acts as a pool of 64 independent Bernoulli trials. The probability that exactly $"k"$ nodes stay active during a pass is dictated by $P(K=k) = \binom{64}{k}(1-p)^k p^{64-k}$. Monte Carlo Level (The System): The loops generate $"N"$ unique matrix permutations of the network. The final script reduces these dimensions using the variance formula to yield a tangible uncertainty map.
+1. **Bernoulli Level (Per Neuron)**: A single node outputs $x_i\cdot M_i\cdot\frac{1}{1-p}$, where $M_i\in\{0, 1\}$. 
+2. **Binomial Level (Per Layer)**: The layer acts as a pool of 64 independent Bernoulli trials. The probability that exactly $"k"$ nodes stay active during a pass is dictated by $P(K=k) = \binom{64}{k}(1-p)^k p^{64-k}$. Monte Carlo Level (The System): The loops generate $"N"$ unique matrix permutations of the network. The final script reduces these dimensions using the variance formula to compute a tangible uncertainty map.
+
+# **Example: Analytical Method for sample-50**
+
+To calculate the predictive uncertainty (variance) from the 50 outputs of the 4-layer network, we treat the outputs as 50 independent random samples. If the network is doing a regression task (like predicting continuous values for an MRI translation or reconstruction), each output will be a tensor of numerical predictions. 
+
+**Step 1: The Raw Data Array (The Collection)**
+When you run your input through the 50 Monte Carlo passes, you save the raw outputs into a 2D matrix. Let's assume your network predicts an output vector of size D (e.g., D could be a flattened patch of pixels or a vector of continuous features). You collect these into a matrix $\mathbf{Y}$ of shape (50, D): $$\mathbf{Y}=\left[\begin{matrix}y_{1,1}&y_{1,2}&\dots &y_{1,D}\\ y_{2,1}&y_{2,2}&\dots &y_{2,D}\\ \vdots &\vdots &\ddots &\vdots \\ y_{50,1}&y_{50,2}&\dots &y_{50,D}\end{matrix}\right]$$ Where $y_{t,j}$ is the prediction at the $j-th$ feature/pixel during the $t-th$ Monte Carlo pass. 
+
+**Step 2: Compute the Sample Mean $(\mu)$**
+Before finding the variance, you must find the center of mass (the mean) for every single feature dimension independently. You sum up the 50 samples along the columns and divide by 50. For any specific feature $\j$: $\mu _{j}=\frac{1}{50}\sum _{t=1}^{50}y_{t,j}$ This gives an **Expected Prediction Vector** $$\boldsymbol{\mu} = \mu_1, \mu_2, \dots, \mu_D $$. 
+
+**Step 3: Compute the Sample Variance $(\sigma ^{2})$**
+The variance represents your model's uncertainty. To compute it, you measure how far each of the 50 random predictions deviates from that mean vector $\mathbfit{\mu }$. For any specific feature $\j$, the sample variance $\sigma _{j}^{2}$ is calculated as: 
+
+$$\sigma _{j}^{2}=\frac{1}{50-1}\sum _{t=1}^{50}(y_{t,j}-\mu _{j})^{2}$$
+
+Why (50 - 1)? We divide by 49 instead of 50 (Bessel’s Correction). This mathematically corrects for the bias introduced because we are estimating the true hidden population mean using our small sample of 50 runs. This yields an Uncertainty Vector $\boldsymbol{\sigma^2} = \sigma^2_1, \sigma^2_2, \dots, \sigma^2_D$. 
+
+**Step 4: Concrete Numerical Example (For 1 Single Pixel/Feature)**
+For a single pixel or feature $(\j=1)$ across just 3 dummy passes to see the arithmetic: 
+- Pass 1 output $(y_{1,1})$: 10.0
+- Pass 2 output $(y_{2,1})$: 12.0
+- Pass 3 output $(y_{3,1})$: 8.0 
+
+**1. Calculate Mean (\mu _{1})**: 
+
+$$\mu _{1}=\frac{10.0+12.0+8.0}{3}=\frac{30.0}{3}=\mathbf{10.0}$$
+
+**2. Calculate Squared Deviations**:
+- Pass 1: $(10.0 - 10.0)^2$ = 0.0
+- Pass 2: $(12.0 - 10.0)^2$ = 4.0
+- Pass 3: $(8.0 - 10.0)^2$ = 4.0
+
+**3. Sum and Divide by (N-1)**: 
+
+$$\sigma _{1}^{2}=\frac{0.0+4.0+4.0}{3-1}=\frac{8.0}{2}=\mathbf{4.0}$$
+
+The final prediction for this feature is 10.0 with an uncertainty variance of 4.0 (or a standard deviation of $(\sqrt{4} = 2.0)$). 
+
+
 
 
