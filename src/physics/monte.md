@@ -13,6 +13,6 @@ $$\theta =\mathbb{E}[f(X)]=\int f(x)p(x)\,dx$$
 2. Evaluate the Function: Compute the function value $\(f(x_i)\)$ for each sampled point.
 3. Compute the Estimator: Approximate the expected value $\(\theta \)$ using the sample mean
 
-$\hat\theta_{N}=\frac{1}{N}\sum_{i=1}^{N}f(x_{i})$
+$$\hat\theta_{N}=\frac{1}{N}\sum_{i=1}^{N}f(x_{i})$$
 
 
