@@ -18,7 +18,9 @@ $$\hat\theta_{N}=\frac{1}{N}\sum_{i=1}^{N}f(x_{i})$$
 
 *Key Properties*
 - **Law of Large Numbers**: As the number of samples increase $\(N \to \infty\)$, the sample mean $\(\^{\theta }_{N}\)$ converges almost surely to the true expected value $\(\theta \)$.
+
 $$\lim _{N\rightarrow \infty }\frac{1}{N}\sum _{i=1}^{N}X_{i}=\mathbb{E}[X]$$
+
 - **Central Limit Theorem**: The error of the estimate scales on the order of $\(\frac{1}{\sqrt{N}}\)$, meaning the convergence rate is independent of the dimension of the domain (which helps avoid the curse of dimensionality compared to traditional grid-based numerical integration)
 
 
