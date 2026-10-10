@@ -88,7 +88,7 @@ To document how this maps onto neural network architecture (e.g 4 hidden layers,
 1. **Bernoulli Level (Per Neuron)**: A single node outputs $x_i\cdot M_i\cdot\frac{1}{1-p}$, where $M_i\in\{0, 1\}$. 
 2. **Binomial Level (Per Layer)**: The layer acts as a pool of 64 independent Bernoulli trials. The probability that exactly $"k"$ nodes stay active during a pass is dictated by $P(K=k) = \binom{64}{k}(1-p)^k p^{64-k}$. Monte Carlo Level (The System): The loops generate $"N"$ unique matrix permutations of the network. The final script reduces these dimensions using the variance formula to compute a tangible uncertainty map.
 
-# **Example: Analytical Method for sample-50**
+# **Example: Analytical Method for 50 sample**
 
 To calculate the predictive uncertainty (variance) from the 50 outputs of the 4-layer network, we treat the outputs as 50 independent random samples. If the network is doing a regression task (like predicting continuous values for an MRI translation or reconstruction), each output will be a tensor of numerical predictions. 
 
@@ -106,9 +106,11 @@ y_{50,1} & y_{50,2} & \cdots & y_{50,D}
 Where $y_{t,j}$ is the prediction at the $j-th$ feature/pixel during the $t-th$ Monte Carlo pass. 
 
 **Step 2: Compute the Sample Mean $(\mu)$**
-Before finding the variance, we must find the center of mass (the mean) for every single feature dimension independently. We sum up the 50 samples along the columns and divide by 50. For any specific feature $j$: $\mu_{j}=\frac{1}{50}\sum_{t=1}^{50}y_{t,j}$ This gives an **Expected Prediction Vector** $\boldsymbol{\mu} = \mu_1, \mu_2, \dots, \mu_D $. 
+
+Before finding the variance, we must find the center of mass (the mean) for every single feature dimension independently. We sum up the 50 samples along the columns and divide by 50. For any specific feature $j$: $ \mu_{j}=\frac{1}{50}\sum_{t=1}^{50}y_{t,j} $ This gives an **Expected Prediction Vector** $\boldsymbol{\mu} = \mu_1, \mu_2, \dots, \mu_D $. 
 
 **Step 3: Compute the Sample Variance $(\sigma ^{2})$**
+
 The variance represents the model's uncertainty. To compute it, we measure how far each of the 50 random predictions deviates from that mean vector $\mathbfit{\mu }$. For any specific feature $j$, the sample variance $\sigma _{j}^{2}$ is calculated as: 
 
 $$\sigma _{j}^{2}=\frac{1}{50-1}\sum _{t=1}^{50}(y_{t,j}-\mu _{j})^{2}$$
