@@ -30,7 +30,7 @@ $$p(y^{\*}|x^{\*},X,Y)=\int p(y^{\*}|x^{\*},W),p(W|X,Y),dW$$
 
 This integral is analytically intractable (impossible to calculate exactly) because there are infinitely many combinations of weights.
 
-A neural network contains millions of parameters, hence, this integral is infinitely complex. Monte Carlo sampling approximates this continuous integral by drawing "$N$" discrete random weight configurations $(\widehat{W}_i)$ from the distribution and by calculating a simple arithmetic mean: 
+A neural network contains millions of parameters, hence, this integral is infinitely complex. Monte Carlo sampling approximates this continuous integral by drawing "$N$" discrete random weight configurations $(\hat{W}_i)$ from the distribution and by calculating a simple arithmetic mean: 
 
 $$\int p(y^{*}\mid x^{*},W)\,p(W\mid D)\,dW\approx \frac{1}{N}\sum _{i=1}^{N}p(y^{*}\mid x^{*},\widehat{W}_{i})$$
 
