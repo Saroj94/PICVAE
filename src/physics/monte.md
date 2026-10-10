@@ -49,9 +49,9 @@ Uncertainty is quantified by calculating the Sample Variance $\sigma ^{2}$ acros
 $$\sigma ^{2}=\frac{1}{N-1}\sum _{i=1}^{N}(y_{i}-\mu )^{2}$$
 
 ## **2.3 Interpreting the Variance Value**
-- **Low Variance (\(\sigma^2 \to 0\))**: The $"N"$ different random configurations of your network all arrived at nearly identical conclusions. The model is highly confident in its prediction. 
+- **Low Variance $(\sigma^2 \to 0)$**: The $"N"$ different random configurations of your network all arrived at nearly identical conclusions. The model is highly confident in its prediction. 
 
-- **High Variance (\(\sigma^2 \gg 0\))**: The random configurations generated widely different outputs. This indicates that the input lies in a region of the data space where the model's parameters are unconstrained (high epistemic uncertainty). The model is guessing. 
+- **High Variance $(\sigma^2 \gg 0\)$**: The random configurations generated widely different outputs. This indicates that the input lies in a region of the data space where the model's parameters are unconstrained (high epistemic uncertainty). The model is guessing. 
 
 ## **2.4 Step-by-Step Mathematical Flow Through the Network**
 To document how this maps onto neural network architecture (e.g 4 hidden layers, 64 neurons each), the system flows sequentially through three mathematical layers: 
