@@ -4,6 +4,7 @@
 Monte Carlo sampling is a computational technique that uses repeated, independent random sampling from a specified probability distribution to estimate a target mathematical quantity (such as an expected value, an integral, or a probability)
 
 *Mathematically*
+
 Given a random variable $\(X\)$ with a probability distribution $\(p(x)\)$ (or a function $\(f(x)\)$ whose expected value or integral we want to compute), the goal is to estimate the expected value:
 
 $$\theta =\mathbb{E}[f(X)]=\int f(x)p(x)\,dx$$
