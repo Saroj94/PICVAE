@@ -107,7 +107,7 @@ Where $y_{t,j}$ is the prediction at the $j-th$ feature/pixel during the $t-th$ 
 
 **Step 2: Compute the Sample Mean $(\mu)$**
 
-Before finding the variance, we must find the center of mass (the mean) for every single feature dimension independently. We sum up the 50 samples along the columns and divide by 50. For any specific feature $j$: $ \mu_{j}=\frac{1}{50}\sum_{t=1}^{50}y_{t,j} $ This gives an **Expected Prediction Vector** $\boldsymbol{\mu} = \mu_1, \mu_2, \dots, \mu_D $. 
+Before finding the variance, we must find the center of mass (the mean) for every single feature dimension independently. We sum up the 50 samples along the columns and divide by 50. For any specific feature j: $ \mu_{j}=\frac{1}{50}\sum_{t=1}^{50}y_{t,j} $ This gives an **Expected Prediction Vector** $\boldsymbol{\mu} = \mu_1, \mu_2, \dots, \mu_D $. 
 
 **Step 3: Compute the Sample Variance $(\sigma ^{2})$**
 
