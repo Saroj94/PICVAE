@@ -32,6 +32,6 @@ This integral is analytically intractable (impossible to calculate exactly) beca
 
 A neural network contains millions of parameters, hence, this integral is infinitely complex. Monte Carlo sampling approximates this continuous integral by drawing "$N$" discrete random weight configurations $(\hat{W}_i)$ from the distribution and by calculating a simple arithmetic mean: 
 
-$$\int p(y^{*}\mid x^{*},W)\,p(W\mid D)\,dW\approx \frac{1}{N}\sum _{i=1}^{N}p(y^{*}\mid x^{*},\widehat{W}_{i})$$
+$$\int p(y^{\*}\mid x^{\*},W)\,p(W\mid D)\,dW\approx \frac{1}{N}\sum _{i=1}^{N}p(y^{\*}\mid x^{\*},\widehat{W}_{i})$$
 
 
