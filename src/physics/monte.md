@@ -7,11 +7,12 @@ Mathematically,
 
 Given a random variable $\(X\)$ with a probability distribution $\(p(x)\)$ (or a function $\(f(x)\)$ whose expected value or integral we want to compute), the goal is to estimate the expected value:
 
-$$\(\theta =\mathbb{E}[f(X)]=\int f(x)p(x)\,dx\)$$
+$$\theta =\mathbb{E}[f(X)]=\int f(x)p(x)\,dx$$
 
 1. Draw Samples: Generate a set of $\(N\)$ independent and identically distributed (i.i.d.) random samples $\(x_1, x_2, \dots, x_N\)$ from the target probability distribution $\(p(x)\)$.
 2. Evaluate the Function: Compute the function value $\(f(x_i)\)$ for each sampled point.
 3. Compute the Estimator: Approximate the expected value $\(\theta \)$ using the sample mean
+
 $\hat\theta_{N}=\frac{1}{N}\sum_{i=1}^{N}f(x_{i})$
 
 
