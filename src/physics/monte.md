@@ -95,7 +95,13 @@ To calculate the predictive uncertainty (variance) from the 50 outputs of the 4-
 **Step 1: The Raw Data Array (The Collection)**
 When you run your input through the 50 Monte Carlo passes, you save the raw outputs into a 2D matrix. Let's assume your network predicts an output vector of size D (e.g., D could be a flattened patch of pixels or a vector of continuous features). You collect these into a matrix $\mathbf{Y}$ of shape (50, D): 
 
-$$\mathbf{Y}=\left[\begin{matrix}y_{1,1}&y_{1,2}&\dots &y_{1,D}\\ y_{2,1}&y_{2,2}&\dots &y_{2,D}\\ \vdots &\vdots &\ddots &\vdots \\ y_{50,1}&y_{50,2}&\dots &y_{50,D}\end{matrix}\right]$$ 
+$$\mathbf{Y} =
+\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,D} \\
+y_{2,1} & y_{2,2} & \cdots & y_{2,D} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+y_{50,1} & y_{50,2} & \cdots & y_{50,D}
+\end{bmatrix}$$
 
 Where $y_{t,j}$ is the prediction at the $j-th$ feature/pixel during the $t-th$ Monte Carlo pass. 
 
