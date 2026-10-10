@@ -34,4 +34,58 @@ A neural network contains millions of parameters, hence, this integral is infini
 
 $$\int p(y^{\*}\mid x^{\*},W)\,p(W\mid X,Y)\,dW\approx \frac{1}{N}\sum _{i=1}^{N}p(y^{\*}\mid x^{\*},\widehat{W}_{i})$$
 
+# **Monte Carlo Works in Data**
+## **2. Estimating Uncertainty (Variance) from N-Sample Outputs**
+When you run a stochastic model (like Monte Carlo Dropout) $"N"$ times for the exact same input, you receive $"N"$ distinct output vectors: $\{y_1, y_2, \dots, y_N\}$. We use these samples to calculate two types of uncertainty: Epistemic (model uncertainty) and Aleatoric (inherent data noise). Here is how you mathematically compute the final prediction and its corresponding uncertainty. 
+
+## **2.1 The Expected Prediction (First Moment)**
+The final stable prediction is the Monte Carlo Sample Mean $\mu$, which represents the center of mass of your predictions: 
+
+$$\mu =\frac{1}{N}\sum _{i=1}^{N}y_{i}$$
+
+## **2.2 The Predictive Uncertainty (Second Moment / Variance)**
+Uncertainty is quantified by calculating the Sample Variance $\sigma ^{2}$ across the $"N"$ outputs. Variance measures the average squared deviation of each individual random trial from the sample mean: 
+
+$$\sigma ^{2}=\frac{1}{N-1}\sum _{i=1}^{N}(y_{i}-\mu )^{2}$$
+
+## **2.3 Interpreting the Variance Value**
+- **Low Variance (\(\sigma^2 \to 0\))**: The $"N"$ different random configurations of your network all arrived at nearly identical conclusions. The model is highly confident in its prediction. 
+
+- **High Variance (\(\sigma^2 \gg 0\))**: The random configurations generated widely different outputs. This indicates that the input lies in a region of the data space where the model's parameters are unconstrained (high epistemic uncertainty). The model is guessing. 
+
+## **2.4 Step-by-Step Mathematical Flow Through the Network**
+To document how this maps onto neural network architecture (e.g 4 hidden layers, 64 neurons each), the system flows sequentially through three mathematical layers: 
+
+```
+[ Input Tensor ]
+       │
+       ▼
+┌────────────────────────────────────────────────────────┐
+│ 1. THE MICRO LAYER: Bernoulli Distribution             │
+│    - Applied to each of the 256 individual neurons.    │
+│    - M_i ~ Bernoulli(1 - p)                            │
+│    - Yields a hard binary mask element: 0 or 1.        │
+└────────────────────────────────────────────────────────┘
+       │
+       ▼
+┌────────────────────────────────────────────────────────┐
+│ 2. THE MACRO LAYER: Binomial Distribution              │
+│    - Applied to each of the 4 individual layers.       │
+│    - K ~ Binomial(n=64, p_keep=1-p)                    │
+│    - Governs the total count of active hidden nodes.   │
+└────────────────────────────────────────────────────────┘
+       │
+       ▼
+┌────────────────────────────────────────────────────────┐
+│ 3. THE INFRASTRUCTURE LAYER: Monte Carlo Loop          │
+│    - Evaluates N forward passes over time.             │
+│    - Computes Sample Mean (μ) and Sample Variance (σ²) │
+└────────────────────────────────────────────────────────┘
+       │
+       ▼
+[ Final Prediction + Uncertainty Map ]
+```
+1. Bernoulli Level (Per Neuron): A single node outputs $x_i \cdot M_i \cdot \frac{1}{1-p}$, where $M_i \in \{0, 1\}$. 
+2. Binomial Level (Per Layer): The layer acts as a pool of 64 independent Bernoulli trials. The probability that exactly $"k"$ nodes stay active during a pass is dictated by $P(K=k) = \binom{64}{k}(1-p)^k p^{64-k}$. Monte Carlo Level (The System): The loops generate $"N"$ unique matrix permutations of the network. The final script reduces these dimensions using the variance formula to yield a tangible uncertainty map.
+
 
