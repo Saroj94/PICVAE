@@ -24,9 +24,9 @@ $$\lim _{N\rightarrow \infty }\frac{1}{N}\sum _{i=1}^{N}X_{i}=\mathbb{E}[X]$$
 - **Central Limit Theorem**: The error of the estimate scales on the order of $(\frac{1}{\sqrt{N}})$, meaning the convergence rate is independent of the dimension of the domain (which helps avoid the curse of dimensionality compared to traditional grid-based numerical integration).
 
 ## **1.2 Useful Application**
-In the standard neural network, a layer computes a function $f(x, \mathbf{W})$ with fixed weights $\mathbf{W}$.In a true Bayesian neural network, the weights are not fixed numbers. Instead, they follow a posterior probability distribution $p(\mathbf{W}\vert{}X, Y)$. To make a prediction for a new input $(x^{\*})$, we mathematically must compute an expected value (an integral) over all possible weight configurations: 
+In the standard neural network, a layer computes a function $f(x, \mathbf{W})$ with fixed weights $\mathbf{W}$.In a true Bayesian neural network, the weights are not fixed numbers. Instead, they follow a posterior probability distribution $p(\mathbf{W}|X, Y)$. To make a prediction for a new input $(x^{\*})$, we mathematically must compute an expected value (an integral) for over all possible weight configurations: 
 
-$$p(y^{\*}|{}x^{\*},X,Y)=\int p(y^{\*}|{}x^{\*},W)\,p(W|{}X,Y)\,dW$$
+$$p(y^{\*}|x^{\*},X,Y)=\int p(y^{\*}|x^{\*},W)\,p(W|X,Y)\,dW$$
 
 This integral is analytically intractable (impossible to calculate exactly) because there are infinitely many combinations of weights.
 
