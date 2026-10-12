@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from src.logger import logging
-
+from src.physics.MCS_layer import MCDropout
 ## encoder class
 class Encoder(nn.Module):
     """
